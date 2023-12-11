@@ -37,7 +37,7 @@ export const Header = () => {
         </div>
         <div className="flex justify-center items-center gap-[32px] mt-1 mr-3 lg:hidden">
           <FaSearch className="text-[20px] text-white md:hidden" />
-          {isOpenMenu ? (
+          {!isOpenMenu ? (
             <FaBars
               className="text-[22px] text-white"
               onClick={handleOpenMenu}
@@ -50,7 +50,7 @@ export const Header = () => {
           )}
         </div>
       </header>
-      <MenuMobile className={isOpenMenu ? "left-[-100vw]" : "left-0"} />
+      <MenuMobile className={!isOpenMenu ? "left-[-100vw]" : "left-0"} />
     </>
   );
 };
