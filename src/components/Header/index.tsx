@@ -29,7 +29,7 @@ export const Header = () => {
         />
         <div className="hidden lg:flex justify-end items-center gap-2 w-fit lg:w-full lg:col-span-1">
           <img
-            className="w-8 rounded-full"
+            className="w-10 rounded-full"
             src="https://github.com/victorcabral182.png"
             alt="Foto do github"
           />
