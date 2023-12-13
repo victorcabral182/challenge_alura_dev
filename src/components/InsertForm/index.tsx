@@ -1,4 +1,8 @@
-export const InsertForm = () => {
+interface InsertFormProps {
+  handleColor: (e: any) => void;
+}
+
+export const InsertForm = ({ handleColor }: InsertFormProps) => {
   const languages = [
     {
       label: "JavaScript",
@@ -44,6 +48,7 @@ export const InsertForm = () => {
           </select>
           <input
             defaultValue="#5081FB"
+            onChange={handleColor}
             type="color"
             className=" w-full h-14 p-1 rounded-lg bg-[#ffffff] bg-opacity-[16%] text-white focus-within:outline-none lg:col-span-2"
             placeholder="Descrição do seu projeto"
