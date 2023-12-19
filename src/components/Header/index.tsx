@@ -1,18 +1,20 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import { useState } from "react";
-import { CgClose } from "react-icons/cg";
-import { FaSearch, FaBars } from "react-icons/fa";
-import { MenuMobile } from "../MenuMobile";
-import logo from "../../assets/image/logo.png";
+import Image from "next/image"
+import { useState, useMemo } from "react"
+import { CgClose } from "react-icons/cg"
+import { FaSearch, FaBars } from "react-icons/fa"
+import { MenuMobile } from "../MenuMobile"
+import logo from "../../assets/image/logo.png"
+import { InputText } from "../InputText"
+import { usePathname } from "next/navigation"
 
 export const Header = () => {
-  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
 
   const handleOpenMenu = () => {
-    setIsOpenMenu(!isOpenMenu);
-  };
+    setIsOpenMenu(!isOpenMenu)
+  }
 
   return (
     <>
@@ -22,12 +24,11 @@ export const Header = () => {
           alt="Logotipo Alura Dev"
           className="w-[145px] ml-[-16px] lg:col-span-1"
         />
-        <input
-          type="search"
-          className="hidden md:flex w-full h-14 p-4 rounded-lg bg-[#ffffff] bg-opacity-[16%] text-white focus-within:outline-none lg:col-span-2"
+        <InputText
           placeholder="Busque por algo"
+          classNameParentDiv="hidden md:flex w-full lg:col-span-2"
         />
-        <div className="hidden lg:flex justify-end items-center gap-2 w-fit lg:w-full lg:col-span-1">
+        <div className="hidden lg:flex justify-end items-center hover:bg gap-2 w-fit lg:w-full lg:col-span-1">
           <img
             className="w-10 rounded-full"
             src="https://github.com/victorcabral182.png"
@@ -50,7 +51,7 @@ export const Header = () => {
           )}
         </div>
       </header>
-      <MenuMobile className={!isOpenMenu ? "left-[-100vw]" : "left-0"} />
+      <MenuMobile className={!isOpenMenu ? "right-[-100vw]" : "right-0"} />
     </>
-  );
-};
+  )
+}
