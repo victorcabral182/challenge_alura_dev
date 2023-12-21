@@ -1,20 +1,19 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { useState, useMemo } from "react"
-import { CgClose } from "react-icons/cg"
-import { FaSearch, FaBars } from "react-icons/fa"
-import { MenuMobile } from "../MenuMobile"
-import logo from "../../assets/image/logo.png"
-import { InputText } from "../InputText"
-import { usePathname } from "next/navigation"
+import Image from "next/image";
+import { useState } from "react";
+import { CgClose } from "react-icons/cg";
+import { FaSearch, FaBars } from "react-icons/fa";
+import { MenuMobile } from "../MenuMobile";
+import logo from "../../assets/image/logo.png";
+import { InputText } from "../InputText";
 
 export const Header = () => {
-  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
 
   const handleOpenMenu = () => {
-    setIsOpenMenu(!isOpenMenu)
-  }
+    setIsOpenMenu(!isOpenMenu);
+  };
 
   return (
     <>
@@ -51,7 +50,10 @@ export const Header = () => {
           )}
         </div>
       </header>
-      <MenuMobile className={!isOpenMenu ? "right-[-100vw]" : "right-0"} />
+      <MenuMobile
+        className={!isOpenMenu ? "right-[-100%]" : "right-0"}
+        closeMenu={() => setIsOpenMenu(false)}
+      />
     </>
-  )
-}
+  );
+};

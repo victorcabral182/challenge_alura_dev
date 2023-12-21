@@ -1,31 +1,32 @@
-"use client"
+"use client";
 
-import { HiUserGroup } from "react-icons/hi"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { HiUserGroup } from "react-icons/hi";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface MenuMobileProps {
-  className: string
+  className: string;
+  closeMenu: () => void;
 }
 
-export const MenuMobile = ({ className }: MenuMobileProps) => {
-  const pathname = usePathname()
+export const MenuMobile = ({ className, closeMenu }: MenuMobileProps) => {
+  const pathname = usePathname();
 
   const handleMenuCss = (path: string, id: number) => {
-    const isMatching = path === pathname
+    const isMatching = path === pathname;
     if (isMatching && (id === 1 || id === 2)) {
-      return ""
+      return "";
     }
-    return "opacity-40"
-  }
+    return "opacity-40";
+  };
 
   return (
     <>
       <section
-        className={`absolute transition-all duration-300 ease-in-out flex flex-col p-4 gap-4 h-[50%] w-[60%] top-[84.69px] md:top-[120px] md:w-[35%] bg-[#051D3B] bg-opacity-95  rounded-s-lg ${className}`}
+        className={`fixed lg:hidden transition-all duration-300 ease-in-out flex flex-col p-4 gap-4 h-[50%] w-[60%] top-[84.69px] md:top-[120px] md:w-[35%] bg-[#051D3B] bg-opacity-95  rounded-s-lg ${className}`}
       >
         <p className="text-white text-[14px] uppercase">Menu</p>
-        <Link href="/">
+        <Link href="/" onClick={closeMenu}>
           <div
             className={`flex items-center justify-start gap-2 text-white ${handleMenuCss(
               "/",
@@ -38,7 +39,7 @@ export const MenuMobile = ({ className }: MenuMobileProps) => {
             Editor de código
           </div>
         </Link>
-        <Link href="/community">
+        <Link href="/community" onClick={closeMenu}>
           <div
             className={`flex items-center justify-start gap-2 text-white ${handleMenuCss(
               "/community",
@@ -53,5 +54,5 @@ export const MenuMobile = ({ className }: MenuMobileProps) => {
         </Link>
       </section>
     </>
-  )
-}
+  );
+};

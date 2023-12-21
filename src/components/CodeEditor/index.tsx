@@ -8,9 +8,18 @@ import "highlight.js/styles/default.css";
 interface CodeEditorProps {
   showHighlight?: boolean;
   bgColor?: string;
+  code?: string;
+  disabled?: boolean;
+  readOnly?: boolean;
 }
 
-export const CodeEditor = ({ showHighlight, bgColor }: CodeEditorProps) => {
+export const CodeEditor = ({
+  showHighlight,
+  bgColor,
+  disabled,
+  code,
+  readOnly,
+}: CodeEditorProps) => {
   const [editorValue, setEditorValue] = useState("");
 
   useEffect(() => {
@@ -18,6 +27,10 @@ export const CodeEditor = ({ showHighlight, bgColor }: CodeEditorProps) => {
     hljs.initHighlightingOnLoad();
     hljs.highlightAll();
   }, []);
+
+  useEffect(() => {
+    if (code) setEditorValue(code);
+  }, [code]);
 
   const highlightedCode = showHighlight
     ? hljs.highlightAuto(editorValue).value
@@ -40,6 +53,8 @@ export const CodeEditor = ({ showHighlight, bgColor }: CodeEditorProps) => {
           <div className="w-3 h-3 bg-[#27C93F] rounded-full" />
         </div>
         <textarea
+          readOnly={readOnly}
+          disabled={disabled}
           placeholder="Escreva seu código aqui"
           className="py-2 bg-transparent min-h-[190px] text-white focus-within:outline-none"
           spellCheck={false}

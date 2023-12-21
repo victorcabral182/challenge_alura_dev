@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { HiUserGroup } from "react-icons/hi"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { HiUserGroup } from "react-icons/hi";
 
 export const Menu = () => {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   const handleMenuCss = (path: string, id: number) => {
-    const isMatching = path === pathname
+    const isMatching = path === pathname;
     if (isMatching && (id === 1 || id === 2)) {
-      return ""
+      return "";
     }
-    return "opacity-40"
-  }
+    return "opacity-40";
+  };
 
   return (
     <>
@@ -47,5 +47,5 @@ export const Menu = () => {
         </Link>
       </section>
     </>
-  )
-}
+  );
+};
