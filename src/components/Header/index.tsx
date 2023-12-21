@@ -1,19 +1,19 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import { useState } from "react";
-import { CgClose } from "react-icons/cg";
-import { FaSearch, FaBars } from "react-icons/fa";
-import { MenuMobile } from "../MenuMobile";
-import logo from "../../assets/image/logo.png";
-import { InputText } from "../InputText";
+import Image from "next/image"
+import { useState } from "react"
+import { CgClose } from "react-icons/cg"
+import { FaSearch, FaBars } from "react-icons/fa"
+import { MenuMobile } from "../MenuMobile"
+import logo from "../../assets/image/logo.png"
+import { InputText } from "../InputText"
 
 export const Header = () => {
-  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
 
   const handleOpenMenu = () => {
-    setIsOpenMenu(!isOpenMenu);
-  };
+    setIsOpenMenu(!isOpenMenu)
+  }
 
   return (
     <>
@@ -55,5 +55,5 @@ export const Header = () => {
         closeMenu={() => setIsOpenMenu(false)}
       />
     </>
-  );
-};
+  )
+}
