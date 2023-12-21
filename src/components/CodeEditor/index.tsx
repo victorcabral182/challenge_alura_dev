@@ -1,16 +1,22 @@
-"use client";
+"use client"
 
-import hljs from "highlight.js/lib/core";
-import javascript from "highlight.js/lib/languages/javascript";
-import { useEffect, useState } from "react";
-import "highlight.js/styles/default.css";
+import hljs from "highlight.js/lib/core"
+import javascript from "highlight.js/lib/languages/javascript"
+import { useEffect, useState } from "react"
+import "highlight.js/styles/default.css"
+import "highlight.js/styles/monokai.css"
+
+import html2canvas from "html2canvas"
+import download from "downloadjs"
+import { Button } from "../Button"
 
 interface CodeEditorProps {
-  showHighlight?: boolean;
-  bgColor?: string;
-  code?: string;
-  disabled?: boolean;
-  readOnly?: boolean;
+  showHighlight?: boolean
+  bgColor?: string
+  code?: string
+  disabled?: boolean
+  readOnly?: boolean
+  id?: any
 }
 
 export const CodeEditor = ({
@@ -19,29 +25,44 @@ export const CodeEditor = ({
   disabled,
   code,
   readOnly,
+  id,
 }: CodeEditorProps) => {
-  const [editorValue, setEditorValue] = useState("");
+  const [editorValue, setEditorValue] = useState<string>("")
 
   useEffect(() => {
-    hljs.registerLanguage("javascript", javascript);
-    hljs.initHighlightingOnLoad();
-    hljs.highlightAll();
-  }, []);
+    hljs.registerLanguage("javascript", javascript)
+    hljs.initHighlightingOnLoad()
+    hljs.highlightAll()
+  }, [])
 
   useEffect(() => {
-    if (code) setEditorValue(code);
-  }, [code]);
+    if (code) setEditorValue(code)
+  }, [code])
 
   const highlightedCode = showHighlight
     ? hljs.highlightAuto(editorValue).value
-    : editorValue;
+    : editorValue
 
   const containerStyles = {
     backgroundColor: bgColor || "transparent",
-  };
+  }
+
+  const saveImage = async () => {
+    const codeEditor = document.getElementById(`code-editor`)
+    if (codeEditor) {
+      try {
+        const canvas = await html2canvas(codeEditor)
+        const dataUrl = canvas.toDataURL("image/png")
+        download(dataUrl, `code_image.png`, "image/png")
+      } catch (error) {
+        console.error("Error saving image:", error)
+      } finally {
+      }
+    }
+  }
 
   return (
-    <div className="rounded-lg p-4" style={containerStyles}>
+    <div id={id} className="rounded-lg p-4" style={containerStyles}>
       <div
         className={`flex flex-col bg-[#141414] rounded-lg p-4 ${
           showHighlight && "mb-4"
@@ -63,13 +84,23 @@ export const CodeEditor = ({
         />
       </div>
       {showHighlight && (
-        <pre>
-          <code
-            className={`hljs language-javascript`}
-            dangerouslySetInnerHTML={{ __html: highlightedCode }}
-          />
-        </pre>
+        <>
+          <pre id={`code-editor`} className="relative">
+            <code
+              className={`hljs language-javascript w-full h-full hljs-monokai`}
+              dangerouslySetInnerHTML={{ __html: highlightedCode }}
+            />
+          </pre>
+          <Button
+            type="button"
+            variant="filled"
+            className="h-[40px] mt-4 w-full top-[8px] right-[16px]"
+            onClick={() => saveImage()}
+          >
+            Exportar
+          </Button>
+        </>
       )}
     </div>
-  );
-};
+  )
+}
