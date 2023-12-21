@@ -9,15 +9,16 @@ select {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #555; /* Cor do thumb (parte móvel do scrollbar) */
-  border-radius: 6px; /* Borda arredondada do thumb */
+  background-color: #555;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-track {
-  border-radius: 6px;
-  background-color: #eee; /* Cor da trilha (parte fixa do scrollbar) */
+  border-radius: 9999px;
+  background-color: #eee;
 }

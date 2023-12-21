@@ -17,7 +17,7 @@ export const Menu = () => {
 
   return (
     <>
-      <section className="flex flex-col gap-7">
+      <section className="flex flex-col gap-7 fixed">
         <p className="text-white text-[14px] uppercase">Menu</p>
         <Link href="/">
           <div
