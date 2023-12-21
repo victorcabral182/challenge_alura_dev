@@ -5,11 +5,13 @@ export interface DbItem {
   comments: number;
   code: string;
   color: string;
+  author: string;
 }
 
 const db = [
   {
     title: "Algoritmo de Luhn",
+    author: "FillDias",
     description: "Verifica se um número de cartão de crédito é válido.",
     color: "#6BD1FF",
     likes: 43,
@@ -23,6 +25,7 @@ const db = [
   },
   {
     title: "Sistema de Recomendação",
+    author: "victorcabral182",
     description:
       "Algoritmo para recomendar itens com base no histórico do usuário.",
     color: "#4A9BC7",
@@ -37,6 +40,7 @@ const db = [
   },
   {
     title: "Redes Neurais",
+    author: "mmelotti",
     description:
       "Introdução aos princípios básicos das redes neurais artificiais.",
     color: "#8ED9FF",
@@ -64,6 +68,7 @@ class NeuralNetwork {
   },
   {
     title: "Classificação de Imagens",
+    author: "felipe1almeida",
     description:
       "Utilizando algoritmos de aprendizado de máquina para classificar imagens.",
     color: "#6BFFD1",
