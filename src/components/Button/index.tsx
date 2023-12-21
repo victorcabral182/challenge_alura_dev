@@ -1,3 +1,5 @@
+import { ButtonHTMLAttributes, DetailedHTMLProps } from "react"
+
 interface ButtonProps {
   variant: "filled" | "outlined"
   className?: string

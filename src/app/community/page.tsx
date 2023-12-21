@@ -1,18 +1,20 @@
-"use client";
+"use client"
 
-import { AiFillHeart } from "react-icons/ai";
-import { BsFillChatFill } from "react-icons/bs";
-import { Menu } from "@/components/Menu";
-import db, { DbItem } from "../../utils/utils";
-import { CodeEditor } from "@/components/CodeEditor";
-import { useState } from "react";
+import { AiFillHeart } from "react-icons/ai"
+import { BsFillChatFill } from "react-icons/bs"
+import { Menu } from "@/components/Menu"
+import db, { DbItem } from "../../utils/utils"
+import { CodeEditor } from "@/components/CodeEditor"
+import { useState } from "react"
+import { Button } from "@/components/Button"
 
 export default function Community() {
-  const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null);
+  const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null)
 
   const handleToggleHighlight = (index: number) => {
-    setHighlightedIndex((prevIndex) => (prevIndex === index ? null : index));
-  };
+    setHighlightedIndex((prevIndex) => (prevIndex === index ? null : index))
+  }
+
   return (
     <>
       <main className="grid grid-cols-4 lg:mt-8 h-[calc(100vh-152px)] mt-4 overflow-y-auto">
@@ -30,7 +32,7 @@ export default function Community() {
               showHighlight={highlightedIndex === index}
               code={item.code}
             />
-            <div className="flex flex-col gap2 bg-[#000] bg-opacity-[16%] rounded-b-lg p-6 text-white">
+            <div className="relative flex flex-col gap2 bg-[#000] bg-opacity-[16%] rounded-b-lg p-6 text-white">
               <h1 className="text-[16px]">{item.title}</h1>
               <p className="text-white text-[14px] text-opacity-80">
                 {item.description}
@@ -66,5 +68,5 @@ export default function Community() {
         ))}
       </main>
     </>
-  );
+  )
 }
