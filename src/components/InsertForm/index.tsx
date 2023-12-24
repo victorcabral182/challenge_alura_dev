@@ -4,7 +4,7 @@ import { InputSelect } from "../InputSelect"
 import { InputText } from "../InputText"
 import { InputTextArea } from "../InputTextArea"
 import { useContext, useState } from "react"
-import { CodeContext, CodeContextProps } from "@/contexts/CodeContext"
+import { CodeContext } from "@/contexts/CodeContext"
 import { Spinner } from "../Spinner"
 
 interface InsertFormProps {
@@ -13,7 +13,7 @@ interface InsertFormProps {
 
 export const InsertForm = ({ handleColor }: InsertFormProps) => {
   const codeContext = useContext(CodeContext)
-  const { card, handleInsertCode, setCard } = codeContext
+  const { card, Db, handleInsertCode, setCard } = codeContext
 
   const [isLoadingInsertForm, setIsloadingInsertForm] = useState<boolean>(false)
 
@@ -47,17 +47,17 @@ export const InsertForm = ({ handleColor }: InsertFormProps) => {
 
   const sendCardToDb = (form: any) => {
     setIsloadingInsertForm(true)
-    setCard({
-      ...card,
+    const newItem = {
       ...form,
       author: "victorcabral182",
       likes: handleRandomNumbers(),
       comments: handleRandomNumbers(),
-    })
+      code: card.code,
+    }
+    handleInsertCode(newItem)
     setTimeout(() => {
-      handleInsertCode()
       setIsloadingInsertForm(false)
-    }, 1500)
+    }, 2000)
   }
 
   return (

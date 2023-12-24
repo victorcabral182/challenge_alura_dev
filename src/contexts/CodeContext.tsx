@@ -113,11 +113,9 @@ const CodeProvider = ({ children }: any) => {
     author: "",
   })
 
-  const handleInsertCode = () => {
-    setDb({ ...Db, card })
+  const handleInsertCode = (newItem: any) => {
+    setDb([...Db, newItem])
   }
-
-  console.log(Db)
 
   return (
     <CodeContext.Provider

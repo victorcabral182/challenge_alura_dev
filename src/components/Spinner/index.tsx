@@ -5,7 +5,7 @@ export const Spinner = () => {
   return (
     <>
       <div className="flex justify-center items-center">
-        <Image src={spinner} alt="Loading..." className="animate-spin" />
+        <Image src={spinner} alt="Loading..." className="animate-spin w-6" />
       </div>
     </>
   )
