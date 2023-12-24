@@ -15,7 +15,7 @@ export default function Home() {
         <Menu />
       </aside>
       <section className="col-span-4 lg:col-span-2 p-4">
-        <CodeEditor bgColor={codeEditorBgColor} showHighlight={showHighlight} />
+        <CodeEditor color={codeEditorBgColor} showHighlight={showHighlight} />
         <button
           onClick={() => setShowHighlight(!showHighlight)}
           className="bg-[#5081FB14] h-14 rounded-lg text-white w-full mt-8"

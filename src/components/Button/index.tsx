@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, DetailedHTMLProps } from "react"
 interface ButtonProps {
   variant: "filled" | "outlined"
   className?: string
-  children?: string
+  children?: any
   onClick?: (value: any) => any
   type: "button" | "reset" | "submit" | undefined
 }

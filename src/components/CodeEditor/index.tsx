@@ -2,17 +2,18 @@
 
 import hljs from "highlight.js/lib/core"
 import javascript from "highlight.js/lib/languages/javascript"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import "highlight.js/styles/default.css"
 import "highlight.js/styles/monokai.css"
 
 import html2canvas from "html2canvas"
 import download from "downloadjs"
 import { Button } from "../Button"
+import { CodeContext, CodeContextProps } from "@/contexts/CodeContext"
 
 interface CodeEditorProps {
+  color: string
   showHighlight?: boolean
-  bgColor?: string
   code?: string
   disabled?: boolean
   readOnly?: boolean
@@ -21,30 +22,23 @@ interface CodeEditorProps {
 
 export const CodeEditor = ({
   showHighlight,
-  bgColor,
   disabled,
   code,
   readOnly,
+  color,
   id,
 }: CodeEditorProps) => {
+  const context = useContext(CodeContext)
+  const { card, setCard } = context
+
   const [editorValue, setEditorValue] = useState<string>("")
-
-  useEffect(() => {
-    hljs.registerLanguage("javascript", javascript)
-    hljs.initHighlightingOnLoad()
-    hljs.highlightAll()
-  }, [])
-
-  useEffect(() => {
-    if (code) setEditorValue(code)
-  }, [code])
 
   const highlightedCode = showHighlight
     ? hljs.highlightAuto(editorValue).value
     : editorValue
 
   const containerStyles = {
-    backgroundColor: bgColor || "transparent",
+    backgroundColor: color || "transparent",
   }
 
   const saveImage = async () => {
@@ -60,6 +54,22 @@ export const CodeEditor = ({
       }
     }
   }
+
+  useEffect(() => {
+    hljs.registerLanguage("javascript", javascript)
+    hljs.initHighlightingOnLoad()
+    hljs.highlightAll()
+  }, [])
+
+  useEffect(() => {
+    if (code) {
+      setEditorValue(code)
+    }
+  }, [code])
+
+  useEffect(() => {
+    setCard({ ...card, code: editorValue })
+  }, [editorValue]) // eslint-disable-line
 
   return (
     <div id={id} className="rounded-lg p-4" style={containerStyles}>
@@ -79,7 +89,9 @@ export const CodeEditor = ({
           placeholder="Escreva seu código aqui"
           className="py-2 bg-transparent min-h-[190px] text-white focus-within:outline-none"
           spellCheck={false}
-          onChange={(e) => setEditorValue(e.target.value)}
+          onChange={(e) => {
+            setEditorValue(e.target.value)
+          }}
           value={editorValue}
         />
       </div>

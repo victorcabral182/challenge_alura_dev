@@ -1,19 +1,21 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { useState } from "react"
-import { CgClose } from "react-icons/cg"
-import { FaSearch, FaBars } from "react-icons/fa"
-import { MenuMobile } from "../MenuMobile"
-import logo from "../../assets/image/logo.png"
-import { InputText } from "../InputText"
+import Image from "next/image";
+import { useState } from "react";
+import { CgClose } from "react-icons/cg";
+import { FaSearch, FaBars } from "react-icons/fa";
+import { MenuMobile } from "../MenuMobile";
+import logo from "../../assets/image/logo.png";
+import { InputText } from "../InputText";
+import { useForm } from "react-hook-form";
 
 export const Header = () => {
-  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
+  const { control } = useForm();
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
 
   const handleOpenMenu = () => {
-    setIsOpenMenu(!isOpenMenu)
-  }
+    setIsOpenMenu(!isOpenMenu);
+  };
 
   return (
     <>
@@ -24,6 +26,8 @@ export const Header = () => {
           className="w-[145px] ml-[-16px] lg:col-span-1"
         />
         <InputText
+          control={control}
+          name="search"
           placeholder="Busque por algo"
           classNameParentDiv="hidden md:flex w-full lg:col-span-2"
         />
@@ -55,5 +59,5 @@ export const Header = () => {
         closeMenu={() => setIsOpenMenu(false)}
       />
     </>
-  )
-}
+  );
+};
