@@ -6,6 +6,10 @@ import { InputTextArea } from "../InputTextArea"
 import { useContext, useState } from "react"
 import { CodeContext } from "@/contexts/CodeContext"
 import { Spinner } from "../Spinner"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers/yup"
 
 interface InsertFormProps {
   handleColor: (e: any) => void
@@ -13,17 +17,29 @@ interface InsertFormProps {
 
 export const InsertForm = ({ handleColor }: InsertFormProps) => {
   const codeContext = useContext(CodeContext)
-  const { card, Db, handleInsertCode, setCard } = codeContext
-
+  const { card, handleInsertCode } = codeContext
   const [isLoadingInsertForm, setIsloadingInsertForm] = useState<boolean>(false)
 
-  const { register, handleSubmit, control } = useForm({
+  const codeSchema = yup.object().shape({
+    title: yup.string().required("Campo obrigatório"),
+    description: yup.string().required("Campo obrigatório"),
+    language: yup.string().required("Campo obrigatório"),
+    color: yup.string(),
+  })
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       title: "",
       description: "",
       language: "",
       color: "#5081FB",
     },
+    resolver: yupResolver(codeSchema),
   })
 
   const handleRandomNumbers = () => {
@@ -32,16 +48,20 @@ export const InsertForm = ({ handleColor }: InsertFormProps) => {
 
   const languages = [
     {
+      label: "HTML",
+      value: "html",
+    },
+    {
+      label: "CSS",
+      value: "css",
+    },
+    {
       label: "JavaScript",
-      value: "javascript",
+      value: "js",
     },
     {
       label: "TypeScript",
-      value: "typescript",
-    },
-    {
-      label: "Java",
-      value: "java",
+      value: "ts",
     },
   ]
 
@@ -57,13 +77,15 @@ export const InsertForm = ({ handleColor }: InsertFormProps) => {
     handleInsertCode(newItem)
     setTimeout(() => {
       setIsloadingInsertForm(false)
+      toast.success("Código adicionado com sucesso")
     }, 2000)
   }
 
   return (
     <>
-      <form onSubmit={handleSubmit(sendCardToDb)}>
-        <section className="w-full flex flex-col gap-7 p-5 lg:pr-0">
+      <ToastContainer />
+      <form onSubmit={handleSubmit(sendCardToDb)} className="">
+        <section className="w-full flex flex-col justify-end gap-7 p-5 lg:pr-0">
           <p className="text-white text-base uppercase font-bold">
             Seu projeto
           </p>
@@ -73,6 +95,7 @@ export const InsertForm = ({ handleColor }: InsertFormProps) => {
             id="name"
             label="Nome"
             placeholder="Digite o nome do projeto"
+            errors={errors.title?.message}
           />
           <InputTextArea
             control={control}
@@ -80,6 +103,7 @@ export const InsertForm = ({ handleColor }: InsertFormProps) => {
             id="description"
             label="Descrição"
             placeholder="Descreva o seu projeto"
+            errors={errors.description?.message}
           />
           <p className="text-white text-[14px] uppercase font-bold text-base">
             Personalização
@@ -90,6 +114,7 @@ export const InsertForm = ({ handleColor }: InsertFormProps) => {
               name="language"
               label="Linguagem"
               options={languages}
+              errors={errors.language?.message}
             />
             <input
               {...register("color")}

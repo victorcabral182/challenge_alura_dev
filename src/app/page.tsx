@@ -23,7 +23,7 @@ export default function Home() {
           {showHighlight ? "Desabilitar highlight" : "Visualizar com highlight"}
         </button>
       </section>
-      <aside className="col-span-4 lg:col-span-1 lg:flex">
+      <aside className="col-span-4 lg:col-span-1 lg:flex lg:justify-end">
         <InsertForm
           handleColor={(e: any) => setCodeEditorBgColor(e.target.value)}
         />

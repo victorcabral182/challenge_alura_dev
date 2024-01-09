@@ -1,14 +1,15 @@
-import React, { InputHTMLAttributes } from "react";
-import { Controller } from "react-hook-form";
+import React, { InputHTMLAttributes } from "react"
+import { Controller } from "react-hook-form"
 interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  placeholder?: string;
-  name: string;
-  value?: string;
-  id?: string | undefined;
-  className?: string;
-  classNameParentDiv?: string;
-  control?: any;
+  label?: string
+  placeholder?: string
+  name: string
+  value?: string
+  id?: string | undefined
+  className?: string
+  classNameParentDiv?: string
+  control?: any
+  errors?: any
 }
 
 export const InputText: React.FC<InputTextProps> = ({
@@ -20,10 +21,11 @@ export const InputText: React.FC<InputTextProps> = ({
   className,
   classNameParentDiv,
   control,
+  errors,
   ...rest
 }: InputTextProps) => {
   if (!control) {
-    return null;
+    return null
   }
   return (
     <>
@@ -46,7 +48,8 @@ export const InputText: React.FC<InputTextProps> = ({
             />
           )}
         />
+        {errors && <span className=" text-red-400 text-[10px]">{errors}</span>}
       </div>
     </>
-  );
-};
+  )
+}
