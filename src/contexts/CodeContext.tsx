@@ -35,71 +35,122 @@ const CodeProvider = ({ children }: any) => {
       color: "#6BD1FF",
       likes: 43,
       comments: 6,
-      code: `function luhnAlgorithm(cardNumber) {
-    // Implementação do Algoritmo de Luhn
-    // ...
-    return isValid;
-  }
-      `,
+      code: `function isValidCreditCardNumber(cardNumber) {
+        cardNumber = cardNumber.replace(/\s/g, '');
+        if (!/^\d+$/.test(cardNumber)) {
+          return false;
+        }
+        const digits = cardNumber.split('').map(Number);
+        digits.reverse();
+        let sum = 0;
+        for (let i = 0; i < digits.length; i++) {
+          let digit = digits[i];
+          if (i % 2 === 1) {
+            digit *= 2;
+            if (digit > 9) {
+              digit -= 9;
+            }
+          }
+          sum += digit;
+        }
+        return sum % 10 === 0;
+      }
+      
+      // Exemplo de uso:
+      const cardNumber = "1234 5678 9012 3456";
+      if (isValidCreditCardNumber(cardNumber)) {
+        console.log("O número do cartão é válido.");
+      } else {
+        console.log("O número do cartão não é válido.");
+      }`,
     },
     {
-      title: "Sistema de Recomendação",
+      title: "ordenarArray",
       author: "victorcabral182",
       description:
-        "Algoritmo para recomendar itens com base no histórico do usuário.",
+        "Função para ordenar um array de forma ascendente ou descendente",
       color: "#4A9BC7",
       likes: 28,
       comments: 4,
-      code: `function recommendationSystem(userHistory) {
-    // Implementação do Sistema de Recomendação
-    // ...
-    return recommendedItems;
-  }
+      code: `function ordenarArray(arr, ordem) {
+        if (ordem === "ascendente") {
+          return arr.sort(function(a, b) {
+            return a - b;
+          });
+        } else if (ordem === "descendente") {
+          return arr.sort(function(a, b) {
+            return b - a;
+          });
+        } else {
+          console.error("Por favor, forneça uma ordem válida ('ascendente' ou 'descendente').");
+          return arr;
+        }
+      }
+      
+      // Exemplo de uso:
+      const arrayParaOrdenar = [5, 2, 8, 1, 4];
+      const arrayAscendente = ordenarArray(arrayParaOrdenar, "ascendente");
+      const arrayDescendente = ordenarArray(arrayParaOrdenar, "descendente");
+      
+      console.log("Array original:", arrayParaOrdenar);
+      console.log("Array ordenado (ascendente):", arrayAscendente);
+      console.log("Array ordenado (descendente):", arrayDescendente);
       `,
     },
     {
-      title: "Redes Neurais",
+      title: "Estrutura base do HTML",
       author: "mmelotti",
-      description:
-        "Introdução aos princípios básicos das redes neurais artificiais.",
+      description: "Exemplo de um código html básico",
       color: "#8ED9FF",
       likes: 35,
       comments: 8,
-      code: `// Exemplo de uma rede neural simples
-  class NeuralNetwork {
-    constructor() {
-      // Inicialização da rede neural
-      // ...
-    }
-  
-    train(data) {
-      // Treinamento da rede neural
-      // ...
-    }
-  
-    predict(input) {
-      // Predição usando a rede neural treinada
-      // ...
-      return prediction;
-    }
-  }
+      code: `<!DOCTYPE html>
+      <html lang="pt-br">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Minha Página</title>
+          <!-- Adicione links para folhas de estilo (CSS) ou scripts (JavaScript) aqui, se necessário -->
+      </head>
+      <body>
+      
+          <!-- O conteúdo da sua página vai aqui -->
+      
+          <!-- Adicione scripts JavaScript aqui, se necessário -->
+      
+      </body>
+      </html>
       `,
     },
     {
-      title: "Classificação de Imagens",
+      title: "Exemplos de código CSS",
       author: "felipe1almeida",
-      description:
-        "Utilizando algoritmos de aprendizado de máquina para classificar imagens.",
+      description: "Utilizando CSS raíz",
       color: "#6BFFD1",
       likes: 19,
       comments: 3,
-      code: `// Exemplo de classificação de imagens usando aprendizado de máquina
-  function classifyImage(imageData) {
-    // Implementação do algoritmo de classificação
-    // ...
-    return classificationResult;
-  }
-      `,
+      code: `.minha-classe {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        color: #333;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f0f0f0;
+    }
+
+    /* Adicionando classes específicas à classe "minha-classe" */
+    .minha-classe.destaque {
+        background-color: #ffe600; /* Amarelo */
+        font-weight: bold;
+    }
+
+    .minha-classe.margem-superior {
+        margin-top: 20px;
+    }
+
+    .minha-classe.texto-vermelho {
+        color: #ff0000; /* Vermelho */
+    }`,
     },
   ]
   const [Db, setDb] = useState<any>(initialArray)

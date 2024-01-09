@@ -1,31 +1,32 @@
-"use client";
+"use client"
 
-import { BiChevronDown } from "react-icons/bi";
+import { BiChevronDown } from "react-icons/bi"
 import {
   ChangeEventHandler,
   FocusEventHandler,
   MouseEventHandler,
   useState,
-} from "react";
-import { Controller } from "react-hook-form";
+} from "react"
+import { Controller } from "react-hook-form"
 
 interface Option {
-  value: string;
-  label: string;
+  value: string
+  label: string
 }
 
 interface InputSelectProps {
-  label?: string;
-  placeholder?: string;
-  value?: string;
-  name: string;
-  className?: string;
-  onClick?: MouseEventHandler<HTMLSelectElement> | undefined;
-  onChange?: ChangeEventHandler<HTMLSelectElement> | undefined;
-  onBlur?: FocusEventHandler<HTMLSelectElement> | undefined;
-  options: Option[];
-  control: any;
-  id?: string;
+  label?: string
+  placeholder?: string
+  value?: string
+  name: string
+  className?: string
+  onClick?: MouseEventHandler<HTMLSelectElement> | undefined
+  onChange?: ChangeEventHandler<HTMLSelectElement> | undefined
+  onBlur?: FocusEventHandler<HTMLSelectElement> | undefined
+  options: Option[]
+  control: any
+  id?: string
+  errors?: any
 }
 
 export const InputSelect = ({
@@ -40,11 +41,12 @@ export const InputSelect = ({
   options,
   control,
   id,
+  errors,
   ...props
 }: InputSelectProps) => {
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isActive, setIsActive] = useState<boolean>(false)
   if (!control) {
-    return;
+    return
   }
   return (
     <>
@@ -58,8 +60,8 @@ export const InputSelect = ({
               <select
                 className={`${className} z-10 w-full h-14 p-4 rounded-lg bg-[#ffffff] bg-opacity-[16%] hover:bg-opacity-[24%] text-white focus-within:outline-none lg:col-span-2 cursor-pointer`}
                 onClick={() => {
-                  setIsActive(!isActive);
-                  onClick;
+                  setIsActive(!isActive)
+                  onClick
                 }}
                 onChange={(e) => field.onChange(e.target.value)}
                 onBlur={onBlur}
@@ -83,6 +85,7 @@ export const InputSelect = ({
               </select>
             )}
           />
+          {errors && <span className="text-red-400 text-[10px]">{errors}</span>}
           <BiChevronDown
             className={`absolute pointer-events-none transition-all ease-in-out duration-150 ${
               isActive && "rotate-180"
@@ -91,5 +94,5 @@ export const InputSelect = ({
         </div>
       </div>
     </>
-  );
-};
+  )
+}
