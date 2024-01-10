@@ -153,6 +153,9 @@ const CodeProvider = ({ children }: any) => {
     }`,
     },
   ]
+
+  const [resetCode, setResetCode] = useState<boolean>(false)
+  const [emptyCodeError, setEmptyCodeError] = useState<string>()
   const [Db, setDb] = useState<any>(initialArray)
   const [card, setCard] = useState<any>({
     title: "",
@@ -162,6 +165,7 @@ const CodeProvider = ({ children }: any) => {
     code: "",
     color: "",
     author: "",
+    language: "",
   })
 
   const handleInsertCode = (newItem: any) => {
@@ -170,7 +174,17 @@ const CodeProvider = ({ children }: any) => {
 
   return (
     <CodeContext.Provider
-      value={{ card, setCard, Db, setDb, handleInsertCode }}
+      value={{
+        card,
+        setCard,
+        Db,
+        setDb,
+        handleInsertCode,
+        emptyCodeError,
+        setEmptyCodeError,
+        resetCode,
+        setResetCode,
+      }}
     >
       {children}
     </CodeContext.Provider>
