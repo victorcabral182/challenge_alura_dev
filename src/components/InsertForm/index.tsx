@@ -3,21 +3,30 @@ import { Button } from "../Button"
 import { InputSelect } from "../InputSelect"
 import { InputText } from "../InputText"
 import { InputTextArea } from "../InputTextArea"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useMemo, useState } from "react"
 import { CodeContext } from "@/contexts/CodeContext"
 import { Spinner } from "../Spinner"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { useRouter } from "next/navigation"
 
 interface InsertFormProps {
   handleColor: (e: any) => void
 }
 
 export const InsertForm = ({ handleColor }: InsertFormProps) => {
+  const navigate = useRouter()
   const codeContext = useContext(CodeContext)
-  const { card, handleInsertCode } = codeContext
+  const {
+    card,
+    handleInsertCode,
+    setEmptyCodeError,
+    setCard,
+    resetCode,
+    setResetCode,
+  } = codeContext
   const [isLoadingInsertForm, setIsloadingInsertForm] = useState<boolean>(false)
 
   const codeSchema = yup.object().shape({
@@ -25,22 +34,29 @@ export const InsertForm = ({ handleColor }: InsertFormProps) => {
     description: yup.string().required("Campo obrigatório"),
     language: yup.string().required("Campo obrigatório"),
     color: yup.string(),
+    code: yup.string().required("Campo obrigatório"),
   })
 
   const {
     register,
     handleSubmit,
+    setValue,
     control,
+    reset,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
       title: "",
       description: "",
-      language: "",
+      language: undefined,
       color: "#5081FB",
+      code: "",
     },
     resolver: yupResolver(codeSchema),
   })
+
+  const watchedLanguage = watch("language")
 
   const handleRandomNumbers = () => {
     return Math.floor(Math.random() * 50)
@@ -49,7 +65,7 @@ export const InsertForm = ({ handleColor }: InsertFormProps) => {
   const languages = [
     {
       label: "HTML",
-      value: "html",
+      value: "xml",
     },
     {
       label: "CSS",
@@ -57,11 +73,11 @@ export const InsertForm = ({ handleColor }: InsertFormProps) => {
     },
     {
       label: "JavaScript",
-      value: "js",
+      value: "javascript",
     },
     {
       label: "TypeScript",
-      value: "ts",
+      value: "typescript",
     },
   ]
 
@@ -77,9 +93,24 @@ export const InsertForm = ({ handleColor }: InsertFormProps) => {
     handleInsertCode(newItem)
     setTimeout(() => {
       setIsloadingInsertForm(false)
+      reset({})
+      setCard({})
+      setResetCode(true)
       toast.success("Código adicionado com sucesso")
     }, 2000)
   }
+
+  useMemo(() => {
+    setValue("code", card.code)
+  }, [card.code]) // eslint-disable-line
+
+  useEffect(() => {
+    setEmptyCodeError(errors.code?.message)
+  }, [errors.code]) // eslint-disable-line
+
+  useMemo(() => {
+    setCard({ ...card, language: watchedLanguage })
+  }, [watchedLanguage]) // eslint-disable-line
 
   return (
     <>

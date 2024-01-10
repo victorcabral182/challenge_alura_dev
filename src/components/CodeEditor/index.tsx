@@ -1,15 +1,17 @@
 "use client"
 
 import hljs from "highlight.js/lib/core"
-import javascript from "highlight.js/lib/languages/javascript"
-import { useContext, useEffect, useState } from "react"
 import "highlight.js/styles/default.css"
 import "highlight.js/styles/monokai.css"
-
+import javascript from "highlight.js/lib/languages/javascript"
+import xml from "highlight.js/lib/languages/xml"
+import css from "highlight.js/lib/languages/css"
+import typescript from "highlight.js/lib/languages/typescript"
+import { useContext, useEffect, useState } from "react"
 import html2canvas from "html2canvas"
 import download from "downloadjs"
 import { Button } from "../Button"
-import { CodeContext, CodeContextProps } from "@/contexts/CodeContext"
+import { CodeContext } from "@/contexts/CodeContext"
 
 interface CodeEditorProps {
   color: string
@@ -29,7 +31,14 @@ export const CodeEditor = ({
   id,
 }: CodeEditorProps) => {
   const context = useContext(CodeContext)
-  const { card, setCard } = context
+  const {
+    card,
+    setCard,
+    emptyCodeError,
+    setEmptyCodeError,
+    resetCode,
+    setResetCode,
+  } = context
 
   const [editorValue, setEditorValue] = useState<string>("")
 
@@ -56,10 +65,28 @@ export const CodeEditor = ({
   }
 
   useEffect(() => {
-    hljs.registerLanguage("javascript", javascript)
-    hljs.initHighlightingOnLoad()
-    hljs.highlightAll()
-  }, [])
+    const importLanguage = async () => {
+      try {
+        const languageToImport =
+          card?.language === "xml"
+            ? xml
+            : card?.language === "css"
+            ? css
+            : card?.language === "typescript"
+            ? typescript
+            : javascript
+
+        hljs.registerLanguage(card?.language, languageToImport)
+        hljs.highlightAll()
+      } catch (error) {
+        console.log("Erro ao importar a linguagem:", error)
+        hljs.registerLanguage("javascript", javascript)
+        hljs.highlightAll()
+      }
+    }
+
+    importLanguage()
+  }, [card?.language])
 
   useEffect(() => {
     if (code) {
@@ -69,7 +96,15 @@ export const CodeEditor = ({
 
   useEffect(() => {
     setCard({ ...card, code: editorValue })
-  }, [editorValue]) // eslint-disable-line
+    setEmptyCodeError("")
+  }, [editorValue])
+
+  useEffect(() => {
+    if (resetCode) {
+      setEditorValue("")
+      setResetCode(false)
+    }
+  }, [resetCode])
 
   return (
     <div id={id} className="rounded-lg p-4" style={containerStyles}>
@@ -95,11 +130,14 @@ export const CodeEditor = ({
           value={editorValue}
         />
       </div>
+      {emptyCodeError && (
+        <span className="text-red-400 text-[10px]">{emptyCodeError}</span>
+      )}
       {showHighlight && (
         <>
           <pre id={`code-editor`} className="relative">
             <code
-              className={`hljs language-javascript w-full h-full hljs-monokai`}
+              className={`hljs language-${card?.language} w-full h-full hljs-monokai`}
               dangerouslySetInnerHTML={{ __html: highlightedCode }}
             />
           </pre>
