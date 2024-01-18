@@ -10,7 +10,7 @@ export default function Home() {
   const [codeEditorBgColor, setCodeEditorBgColor] = useState<string>("#6BD1FF")
 
   return (
-    <main className="grid grid-cols-4 lg:mt-8 h-[calc(100vh-152px)] overflow-y-auto mt-4">
+    <main className="grid grid-cols-4 lg:mt-8 h-[calc(100vh-100px)] md:h-[calc(100vh-152px)] overflow-y-auto mt-4">
       <aside className="col-span-1 hidden lg:flex">
         <Menu />
       </aside>

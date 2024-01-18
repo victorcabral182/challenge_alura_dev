@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <CodeProvider>
         <body
-          className={`p-4 md:p-8 xl:px-[10%] max-h-[calc(100vh-16px)] bg-[#051D3B] overflow-x-hidden ${inter.className}`}
+          className={`p-4 md:p-8 xl:px-[10%] lg:max-h-[calc(100vh-16px)] bg-[#051D3B] overflow-x-hidden ${inter.className}`}
         >
           <Header />
           {children}
