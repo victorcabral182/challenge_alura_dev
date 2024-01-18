@@ -34,7 +34,7 @@ export const Header = () => {
             classNameParentDiv="hidden md:flex w-full lg:col-span-2"
             className="pl-11"
           />
-          <BiSearchAlt className="text-[24px] text-white opacity-[75%] absolute top-6 left-3 -z-10" />
+          <BiSearchAlt className="hidden md:flex text-[24px] text-white opacity-[75%] absolute top-6 left-3 -z-10" />
         </div>
         <div className="hidden lg:flex justify-end items-center hover:bg gap-2 w-fit lg:w-full lg:col-span-1">
           <img

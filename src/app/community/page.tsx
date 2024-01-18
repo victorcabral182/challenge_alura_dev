@@ -19,7 +19,7 @@ export default function Community() {
 
   return (
     <>
-      <main className="grid grid-cols-4 lg:mt-8 h-[calc(100vh-152px)] mt-4 overflow-y-auto">
+      <main className="grid grid-cols-4 lg:mt-8 h-[calc(100vh-100px)] md:h-[calc(100vh-152px)] mt-4 overflow-y-auto">
         <aside className="col-span-1 hidden lg:flex">
           <Menu />
         </aside>
@@ -27,7 +27,7 @@ export default function Community() {
           Db?.map((item: DbItem, index: number) => (
             <section
               key={index}
-              className="col-span-4 lg:col-span-3 lg:col-start-2  p-4"
+              className="col-span-4 lg:col-span-2 lg:col-start-2 p-4"
             >
               <CodeEditor
                 key={index}
